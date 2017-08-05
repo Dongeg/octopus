@@ -1,0 +1,12 @@
+{
+  "nav":[
+    {"nav_link":"/","nav_name":"首页","icon":"icon-shouyeshouye"},
+    {"nav_link":"/shop","nav_name":"电商品牌塑造","icon":"icon-dianshang"},
+    {"nav_link":"/page","nav_name":"网站建设","icon":"icon-wangzhan"},
+    {"nav_link":"/phone","nav_name":"手机APP","icon":"icon-app"},
+    {"nav_link":"/sell","nav_name":"微信营销","icon":"icon-weixinyingxiao"},
+    {"nav_link":"/erp","nav_name":"企业ERP","icon":"icon-baobiaozhongxin"},
+    {"nav_link":"/anli","nav_name":"客户案例","icon":"icon-case"},
+    {"nav_link":"/zhaopin","nav_name":"招贤纳士","icon":"icon-job"}
+  ]
+}
