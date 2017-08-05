@@ -13,20 +13,24 @@
         </ul>
         <div class="login-form">
           <div class="account-login" v-show="loginWayIndex===1">
-            <p>用户名：</p>
-            <p><input type="text" class="login-pwd"></p>
-            <p>密码：</p>
-            <p><input type="text" class="login-pwd"></p>
-            <p class="account-login">
-               <button>登陆</button>
-               <button>重置</button>
-            </p>
+            <form action="">
+              <p>用户名：</p>
+              <p><input type="text" class="login-pwd" v-model="userName"  @blur="nameBulr()" :class="{'input-err': ifUserName}"></p>
+              <p>密码：</p>
+              <p><input type="text" class="login-pwd" v-model="userPwd"   @blur="pwdBulr()" :class="{'input-err': ifUserPwd}"></p>
+              <p class="account-login">
+               <button type="button" @click="accountLogin()">登陆</button>
+                <button type="reset">重置</button>
+              </p>
+            </form>
           </div>
           <div class="ca-login" v-show="loginWayIndex===0">
             <div>
-              <p>请输入Key私钥密码：</p>
-              <p><input class="login-pwd" type="password"></p>
-              <p><button class="ca-loagin-btn">CA登陆</button></p>
+              <form action="">
+                <p>请输入Key私钥密码：</p>
+                <p><input class="login-pwd" type="password" v-model="CAPwd" id="CA-pwd" @blur="CABulr()" :class="{'input-err': ifCAPwd}"></p>
+                <p><button type="button" class="ca-loagin-btn" @click="CALogin()" >CA登陆</button></p>
+              </form>
               <div class="login-msg">
                 <p><a href="">下载CA驱动</a> CA中心联系电话：0772-2812252</p>
                 <p><a href="">下载市长信箱处理员手册</a></p>
@@ -47,7 +51,14 @@
         data:function(){
             return{
               loginWay:['CA登录','账户登录'],
-              loginWayIndex:1,
+              loginWayIndex:1,//当前登陆方式
+              userName:'',//用户名
+              ifUserName:false,//用户名是否为空
+              userPwd:'',//密码
+              ifUserPwd:false,//密码是否为空
+              CAPwd:'',
+              ifCAPwd:false,//
+
             }
         },
         computed:{
@@ -61,7 +72,45 @@
             toggleLoginWay(index){
                 this.loginWayIndex=index;
             },
-        }
+            nameBulr(){
+                if(this.userName==""){
+                    this.ifUserName=true;
+                }
+                else {
+                    this.ifUserName=false;
+                }
+            },
+            pwdBulr(){
+                if(this.userPwd==""){
+                    this.ifUserPwd=true;
+                }
+                else {
+                    this.ifUserPwd=false;
+                }
+            },
+            CABulr(){
+                if(this.CAPwd==""){
+                    this.ifCAPwd=true;
+                }
+                else {
+                    this.ifCAPwd=false;
+                }
+            },
+            accountLogin(){
+                if(this.userName==''||this.userPwd==""){
+                    layer.msg('请正确填写表单');
+                    return false
+                }
+                window.location.href="#/index";
+            },
+            CALogin(){
+                if(this.CAPwd==''){
+                    layer.msg('请正确填写表单');
+                    return false
+                }
+                window.location.href="#/index";
+            }
+         }
     }
 </script>
 
@@ -70,6 +119,7 @@
   @import "../assets/less/common";
   .login-container {
     display: flex;
+    padding-top: 50px;
     justify-content: center;
     align-items: center;
   }
@@ -77,6 +127,8 @@
     display: flex;
     width: 1000px;
     margin: 0 auto;
+    justify-content:space-between;
+    align-items: center;
   }
   .login-toggle-btn {
     display: flex;
@@ -104,8 +156,11 @@
   .login-form {
     padding-top: 24px;
     width: 400px;
-    height: 270px;
+    height: 300px;
     background-color: #F3F3F3;
+    p{
+      margin-bottom: 10px;
+    }
     input{
       width: 296px;
       height: 40px;
@@ -142,5 +197,8 @@
       border-radius: 5px;
       color: #fff;
     }
+  }
+  .input-err{
+    border: 1px solid #ff0000;
   }
 </style>

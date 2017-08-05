@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <header class="header"><img src="./assets/images/login/login-logo.png" alt="logo"></header>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -14,7 +16,8 @@ export default {
 <style rel="stylesheet/less" lang="less">
   @import "./assets/less/common";
   #app {
-
+    width: 100%;
+    height: 100%;
   }
   .header {
     height: 50px;

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layer-更懂你的web弹窗解决方案</title>  
+  <script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+  <script src="layer/layer.js"></script>
+</head>
+<body>
+<div class="box" style="width:50px;height:50px;background-color:#000" onclick="alertmsg()"></div>
+<div class="close" style="width:50px;height:50px;background-color:blue" onclick="closemsg();">
+</div>
+<script>
+//当你想关闭当前页的某个层时
+var index = layer.open();
+var index = layer.alert();
+var index = layer.load();
+var index = layer.tips();
+//正如你看到的，每一种弹层调用方式，都会返回一个index
+layer.close(index); //此时你只需要把获得的index，轻轻地赋予layer.close即可
+   
+</script>
+</body>
+</html>
