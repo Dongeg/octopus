@@ -26,6 +26,7 @@
             </transition>
             <!--菜单树-->
             <div class="m_tree">
+                <!--一级菜单-->
                 <template v-for="(item,index) in navMain" class="m-tree-item">
                 <ul v-show="item.nav_index==menuNavShowIndex">
                     <template  v-for="(nav,index) in item.nav_content">
@@ -36,6 +37,7 @@
                                @click="MTreeItemNameClick(nav.item_child_index,nav.have_child,nav.item_name,nav.item_link,nav.item_active_index)">
                                 {{nav.item_name}}
                             </p>
+                            <!--二级菜单-->
                             <ul v-show="itemChildIndex==nav.item_child_index">
                                 <template v-for="(navChild,index) in nav.item_child">
                                 <router-link :to="{path:navChild.child_link}">
@@ -58,7 +60,7 @@
                 <ul class="tab-main">
                     <li v-for="(item,index) in tabList" class="tab-item">
                         <router-link :to="{path:item.link}"><p>{{item.name}}</p></router-link>
-                        <p class="close-btn" @click="tabClose(item)">x</p>
+                        <p class="close-btn" @click="tabClose(item.name)">x</p>
                     </li>
                 </ul>
             </div>
@@ -66,10 +68,8 @@
             <router-view></router-view>
             </keep-alive>
         </div>
-
     </div>
 </template>
-
 <script>
     export default {
         name: 'index',
@@ -89,21 +89,21 @@
                 this.getNavList();
             });
         },
-        updated () {
-                let m=document.querySelector(".m-tree-item-name");
-        },
         methods:{
+            // 获取菜单数据
             getNavList(){
                 this.axios.get('/static/data/nav.json').then((response)=> {
                     this.menuNav=response.data.menuNav;
                     this.navMain=response.data.navMain;
                 })
             },
+            //  点左上角那个块
             menuNavItemClick(index){
                 this.item_active_index=-1;
                 this.menuNavShowIndex=index;
                 this.menuNavItemShow=!this.menuNavItemShow;
             },
+            //点菜单列表
             MTreeItemNameClick(index,haveChild,name,link,activeIndex) {
                 this.item_active_index=activeIndex;
                 if( this.itemChildIndex==index) {
@@ -117,7 +117,7 @@
                 else {
                     let isPush=true
                     this.tabList.forEach(function (value,index,array) {
-                        if(array[index]==name){
+                        if(array[index].name==name){
                             isPush=false
                             return
                         }
@@ -131,9 +131,10 @@
                 }
 
             },
+            //点tab标签上的x
             tabClose(item){
                 this.tabList.forEach(function (value,index,array) {
-                    if(array[index]==item){
+                    if(array[index].name==item){
                         array.splice(index, 1)
                         return
                     }
@@ -143,7 +144,7 @@
             MTreeChildClick(name,link){
                 let childIsPush=true
                 this.tabList.forEach(function (value,index,array) {
-                    if(array[index]==name){
+                    if(array[index].name==name){
                         childIsPush=false
                         return
                     }
