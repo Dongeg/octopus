@@ -18,9 +18,14 @@ export default {
   #app {
     width: 100%;
     height: 100%;
+    min-width: 1000px;
   }
   .header {
+    position: fixed;
+    top:0;
+    left:0;
     height: 50px;
+    width: 100%;
     display: flex;
     align-items: center;
     padding-left: 8px;

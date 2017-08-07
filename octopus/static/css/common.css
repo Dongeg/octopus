@@ -116,11 +116,13 @@ ul {
 
 a {
     text-decoration: none;
+    color: rgb(86,91,95);
 }
 
 a:hover,
 a:focus {
     outline: none;
+    color: rgb(86,91,95);
 }
 
 caption,

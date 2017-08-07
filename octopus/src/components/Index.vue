@@ -13,7 +13,7 @@
                     <i class="iconfont icon-gengduo"></i>
                 </div>
             </div>
-            <!--弹出来的那一条-->
+            <!--点完左上角弹出来的那一条-->
             <transition enter-active-class="fadeInLeft" leave-active-class="fadeOutLeft">
             <ul class="menu-nav-item" v-show="menuNavItemShow">
                 <li v-for="(item,index) in menuNav" @click="menuNavItemClick(index)">
@@ -24,16 +24,25 @@
                 </li>
             </ul>
             </transition>
+            <!--菜单树-->
             <div class="m_tree">
                 <template v-for="(item,index) in navMain" class="m-tree-item">
                 <ul v-show="item.nav_index==menuNavShowIndex">
                     <template  v-for="(nav,index) in item.nav_content">
                     <router-link :to="{path:nav.item_link}">
                         <li class="m-tree-item">
-                            <p class="m-tree-item-name" @click="MTreeItemNameClick(nav.item_child_index)">{{nav.item_name}}</p>
+                            <p class="m-tree-item-name"
+                               :class="{'tree-item-active':item_active_index==index}"
+                               @click="MTreeItemNameClick(nav.item_child_index,nav.have_child,nav.item_name,nav.item_link,nav.item_active_index)">
+                                {{nav.item_name}}
+                            </p>
                             <ul v-show="itemChildIndex==nav.item_child_index">
                                 <template v-for="(navChild,index) in nav.item_child">
-                                    <li class="nav-child">{{navChild}}</li>
+                                <router-link :to="{path:navChild.child_link}">
+                                    <li class="nav-child" @click="MTreeChildClick(navChild.child_name,navChild.child_link)">
+                                        {{navChild.child_name}}
+                                    </li>
+                                </router-link>
                                 </template>
                             </ul>
                         </li>
@@ -44,7 +53,18 @@
             </div>
         </div>
         <div id="index-main">
+            <!--二级页面标签卡-->
+            <div class="tab-container">
+                <ul class="tab-main">
+                    <li v-for="(item,index) in tabList" class="tab-item">
+                        <router-link :to="{path:item.link}"><p>{{item.name}}</p></router-link>
+                        <p class="close-btn" @click="tabClose(item)">x</p>
+                    </li>
+                </ul>
+            </div>
+            <keep-alive>
             <router-view></router-view>
+            </keep-alive>
         </div>
 
     </div>
@@ -58,14 +78,19 @@
                 menuNav:[],//横向一级导航
                 navMain:[],//菜单树
                 menuNavShowIndex:0,//当前一级菜单
+                item_active_index:0,//处于激活状态的目录索引
                 menuNavItemShow:false,//是否显示那一横条
-                itemChildIndex:-1//展开哪个二级子目录
+                itemChildIndex:0,//哪个目录处于活跃状态
+                tabList:[]//tab标签列表
             }
         },
         mounted () {
             this.$nextTick(()=> {
                 this.getNavList();
             });
+        },
+        updated () {
+                let m=document.querySelector(".m-tree-item-name");
         },
         methods:{
             getNavList(){
@@ -75,16 +100,60 @@
                 })
             },
             menuNavItemClick(index){
+                this.item_active_index=-1;
                 this.menuNavShowIndex=index;
                 this.menuNavItemShow=!this.menuNavItemShow;
             },
-            MTreeItemNameClick(index){
-                if( this.itemChildIndex==index){
+            MTreeItemNameClick(index,haveChild,name,link,activeIndex) {
+                this.item_active_index=activeIndex;
+                if( this.itemChildIndex==index) {
                     this.itemChildIndex=-1;
                 }else{
                     this.itemChildIndex=index
                 }
+                if (haveChild) {
+                    return
+                }
+                else {
+                    let isPush=true
+                    this.tabList.forEach(function (value,index,array) {
+                        if(array[index]==name){
+                            isPush=false
+                            return
+                        }
+                        else {
+                            isPush=true
+                        }
+                    })
+                    if(isPush) {
+                        this.tabList.push({"name":name,"link":link});
+                    }
+                }
 
+            },
+            tabClose(item){
+                this.tabList.forEach(function (value,index,array) {
+                    if(array[index]==item){
+                        array.splice(index, 1)
+                        return
+                    }
+                })
+            },
+            //二级菜单点击
+            MTreeChildClick(name,link){
+                let childIsPush=true
+                this.tabList.forEach(function (value,index,array) {
+                    if(array[index]==name){
+                        childIsPush=false
+                        return
+                    }
+                    else {
+                        childIsPush=true
+                    }
+                })
+                if(childIsPush) {
+                    this.tabList.push({"name":name,"link":link});
+                }
             }
         },
     }
@@ -95,6 +164,7 @@
     #index{
         display: flex;
         height: 100%;
+        padding-top: 50px;
     }
     .menu{
         width: 180px;
@@ -150,7 +220,7 @@
             border-right: 1px solid #aaa;
             border-top: 1px solid #aaa;
             border-bottom: 1px solid #aaa;
-            background-color:#E4F7FE;
+            background-color:@blue-Less;
             i{
                 font-size: 60px;
                 color: @blue-plus;
@@ -188,7 +258,35 @@
         padding-left: 5px;
         height: 40px;
         line-height: 40px;
-        background-color:#E4F7FE;
+        background-color:@blue-Less;
         border-top:1px solid #ccc ;
+    }
+    .tree-item-active{
+        background-color: @blue-plus;
+        color: #fff;
+    }
+    .tab-container{
+        width: 100%;
+        height: 40px;
+        background-color:#dae7ed;
+    }
+    .tab-main{
+        height: 100%;
+        display: flex;
+        align-items:flex-end;
+
+    }
+    .tab-item{
+        display: flex;
+        padding: 7px;
+        background-color:#DCDCDC;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+    .close-btn{
+        padding-left: 15px;
+    }
+    #index-main{
+        flex-grow:1;
     }
 </style>
