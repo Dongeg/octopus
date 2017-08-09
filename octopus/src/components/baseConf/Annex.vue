@@ -1,91 +1,171 @@
 <template>
-    <div>
+    <div id="annex">
         <div class="operating">
-            <button type="button"><i class="iconfont icon-jia"></i>新增</button>
-            <button type="button"><i class="iconfont icon-neirongbianji"></i>编辑</button>
-            <button type="button"><i class="iconfont icon-icon_delete"></i>删除</button>
+            <button type="button" @click="opeShow('新建附件模块')"><i class="iconfont icon-jia"></i>新增</button>
+            <button type="button" @click="opeShow('编辑附件模块')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
+            <button type="button"  data-toggle="modal" data-target="#myModal"><i class="iconfont icon-icon_delete"></i>删除</button>
         </div>
+        <el-table :data="tableData" style="width: 100%">
+            <el-table-column
+                    type="index"
+                    show-overflow-tooltip
+            >
+            </el-table-column>
+            <el-table-column
+                    label="模块状态"
+                    show-overflow-tooltip
+            >
+                <template scope="scope">
+                    <i class="iconfont icon-dui"></i>
+                </template>
 
-            <table  class="data_table table table-striped table-bordered" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>模块状态</th>
-                    <th>编号</th>
-                    <th>模块名称</th>
-                    <th>模块描述</th>
-                    <th>文件类型（逗号隔开）</th>
-                    <th>创建时间</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><i class="iconfont icon-dui"></i></td>
-                    <td>rubik_001</td>
-                    <td>附件模块管理edit</td>
-                    <td>附件模块管理edit</td>
-                    <td>*</td>
-                    <td>2016-07-22 15:13:38</td>
-
-                </tr>
-                </tbody>
-            </table>
+            </el-table-column>
+            <el-table-column
+                    prop="number"
+                    label="编号">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="模块名称"
+                    show-overflow-tooltip
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="dir"
+                    label="模块描述"
+                    show-overflow-tooltip
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="type"
+                    label="文件类型（逗号隔开）"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="time"
+                    label="创建时间">
+            </el-table-column>
+        </el-table>
+        <div class="page-navigation">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <operate v-show="operate" @hide-ope="hideOperate()" :opname="opName">
+            <div slot="op-btn">
+                <button type="button" class="btn btn-primary" @click="hideOperate()">取消</button>
+                <button type="button" class="btn btn-primary" @click="hideOperate()">确认</button>
+            </div>
+            <div slot="op-name">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">编号</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">模块名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">模块描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">文件类型</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">模块状态</label>
+                        <div class="col-sm-9">
+                            <label for="used"><input type="radio" id="used" name="model-status">启用</label>
+                            <label for="unused"><input type="radio" id="unused" name="model-status">禁用</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </operate>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        附件模块删除后无法恢复！
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger">删除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </template>
 
 <script>
+    import operate from '../baseOperate'
     export default {
+        components:{
+            operate
+        },
         name: 'annex',
         data:function(){
             return{
-
-
+                operate:false,
+                opName:"",
+                tableData:[]
             }
         },
         computed:{
 
         },
-        mounted () {
+        mounted() {
             this.$nextTick(()=> {
-                this.initDataTable();
+                this.getData();
+
             });
         },
         methods:{
-            initDataTable(){
-                $('.data_table').dataTable({
-                    "aaSorting": [[ 2, "desc" ]],//默认第几个排序
-                    "bStateSave": true,//状态保存
-                    "aoColumnDefs": [
-                        //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                        {"orderable":false,"aTargets":[0]}// 制定列不参与排序
-                    ],
-                    language: {
-                        "sProcessing": "处理中...",
-                        "sLengthMenu": "显示 _MENU_ 项结果",
-                        "sZeroRecords": "没有匹配结果",
-                        "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                        "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                        "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                        "sInfoPostFix": "",
-                        "sSearch": "搜索:",
-                        "sUrl": "",
-                        "sEmptyTable": "表中数据为空",
-                        "sLoadingRecords": "载入中...",
-                        "sInfoThousands": ",",
-                        "oPaginate": {
-                            "sFirst": "首页",
-                            "sPrevious": "上页",
-                            "sNext": "下页",
-                            "sLast": "末页"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": 以升序排列此列",
-                            "sSortDescending": ": 以降序排列此列"
-                        }
-                    }
-                });
-            }
+            getData(){
+                this.axios.get('/static/data/annex.json').then((response)=> {
+                    this.tableData=response.data.annex;
+                })
+            },
+            opeShow(text){
+                this.opName=text;
+                this.operate=true;
+            },
+            hideOperate(){
+                this.operate=false;
+            },
         }
     }
 </script>
@@ -93,6 +173,11 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped rel="stylesheet/less" lang="less">
     @import "../../assets/less/common";
+    #annex{
+        position: relative;
+        height: 100%;
+        padding-top: 40px;
+    }
     .operating {
         padding: 10px;
         button{
@@ -107,5 +192,19 @@
     }
     .data_table{
         text-align: center;
+    }
+    .page-navigation{
+        text-align: right;
+    }
+    .data-title{
+        th{
+            text-align: center;
+        }
+    }
+    .form-group{
+        margin-right: 0;
+    }
+    .pagination{
+        margin: 0;
     }
 </style>

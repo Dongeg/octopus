@@ -101,14 +101,14 @@
                     layer.msg('请正确填写表单');
                     return false
                 }
-                window.location.href="#/index";
+                window.location.href="#/index/annex";
             },
             CALogin(){
                 if(this.CAPwd==''){
                     layer.msg('请正确填写表单');
                     return false
                 }
-                window.location.href="#/index";
+                window.location.href="#/index/annex";
             }
          }
     }

@@ -121,9 +121,6 @@
                             isPush=false
                             return
                         }
-                        else {
-                            isPush=true
-                        }
                     })
                     if(isPush) {
                         this.tabList.push({"name":name,"link":link});
@@ -147,9 +144,6 @@
                     if(array[index].name==name){
                         childIsPush=false
                         return
-                    }
-                    else {
-                        childIsPush=true
                     }
                 })
                 if(childIsPush) {
@@ -210,7 +204,7 @@
         top:0;
         left: 180px;
         display: flex;
-        z-index: 1;
+        z-index: 10;
         li{
             display: flex;
             align-items:center;
@@ -267,6 +261,10 @@
         color: #fff;
     }
     .tab-container{
+        position:absolute;
+        top:0;
+        left:0;
+        z-index: 9;
         width: 100%;
         height: 40px;
         background-color:#dae7ed;
@@ -288,6 +286,7 @@
         padding-left: 15px;
     }
     #index-main{
+        position: relative;
         flex-grow:1;
     }
 </style>
