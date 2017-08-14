@@ -1,19 +1,17 @@
 <template>
-    <div id="log">
+    <div id="tem">
         <div class="operating">
-            <button type="button" @click="opeShow('新增')"><i class="iconfont icon-jia"></i>新增</button>
-            <button type="button" @click="opeShow('编辑')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
-            <button type="button"  data-toggle="modal" data-target="#myModal"><i class="iconfont icon-icon_delete"></i>删除</button>
+            <button type="button" @click="opeShow('编辑附件模块')"><i class="iconfont icon-neirongbianji"></i>上传模板</button>
+            <button type="button"  data-toggle="modal" data-target="#myModal"><i class="iconfont icon-icon_delete"></i>卸载模板</button>
         </div>
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="tableData" style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
             <el-table-column
                     type="index"
                     show-overflow-tooltip
             >
             </el-table-column>
             <el-table-column
-                    label="状态"
-                    width="100"
+                    label="当前使用"
                     show-overflow-tooltip
             >
                 <template scope="scope">
@@ -22,43 +20,27 @@
 
             </el-table-column>
             <el-table-column
-                    prop="behaviorName"
-                    label="行为名称"
-                    show-overflow-tooltip
+                    label="缩略图">
+                <template scope="scope">
+                    <img src="../../assets/images/index/template_thumbnail.jpg" alt="">
+                    <!--<img :src="scope.row.images" alt="">-->
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="tplName"
+                    label="模板">
+            </el-table-column>
+            <el-table-column
+                    prop="time"
+                    label="提交时间"
             >
             </el-table-column>
             <el-table-column
-                    prop="behaviorDir"
-                    label="行为描述"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="behaviorFunction"
-                    label="执行方法"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="type"
-                    label="系统标识"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="system"
-                    label="所属系统"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="order"
-                    label="排序"
-                    show-overflow-tooltip
+                    prop="version"
+                    label="版本"
             >
             </el-table-column>
         </el-table>
-
         <div class="page-navigation">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -88,19 +70,19 @@
             <div slot="op-name">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">标题</label>
+                        <label class="col-sm-3 control-label">编号</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">说明</label>
+                        <label class="col-sm-3 control-label">模块名</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">终端类型</label>
+                        <label class="col-sm-3 control-label">模块描述</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
@@ -140,7 +122,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -149,29 +130,36 @@
         components:{
             operate
         },
-        name: 'annex',
+        name: 'modelManage',
         data:function(){
             return{
                 operate:false,
                 opName:"",
-                tableData:[]
+                tableData:[
+                    {
+                        "images":"../../assets/images/index/template_thumbnail.jpg",
+                        "tplName":"dsds",
+                        "time":"2017-03-21 16:24:44",
+                        "version":"1.0.0"
+                    },
+                    {
+                        "images":"../../assets/images/index/template_thumbnail.png",
+                        "tplName":"qwqwqw",
+                        "time":"2017-03-21 16:24:44",
+                        "version":"1.0.0"
+                    }
+                ],
             }
         },
         computed:{
 
         },
-        mounted() {
+        mounted () {
             this.$nextTick(()=> {
-                this.getData();
 
             });
         },
         methods:{
-            getData(){
-                this.axios.get('http://octops.cn/log').then((response)=> {
-                    this.tableData=response.data.data;
-                })
-            },
             opeShow(text){
                 this.opName=text;
                 this.operate=true;
@@ -179,6 +167,15 @@
             hideOperate(){
                 this.operate=false;
             },
+            chooseModel(){
+                this.createModelShow=false;
+            },
+            setCurrent(row) {
+                this.$refs.singleTable.setCurrentRow(row);
+            },
+            handleCurrentChange(val) {
+                this.currentRow = val;
+            }
         }
     }
 </script>
@@ -186,7 +183,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped rel="stylesheet/less" lang="less">
     @import "../../assets/less/common";
-    #log{
+    #tem {
         position: relative;
         height: 100%;
         padding-top: 40px;
@@ -213,7 +210,6 @@
         th{
             text-align: center;
         }
-
     }
     .form-group{
         margin-right: 0;
@@ -221,11 +217,49 @@
     .pagination{
         margin: 0;
     }
-    .data_table{
-        td,th{
-            white-space: nowrap;
-            word-wrap: normal;
-            overflow: hidden;
+    #create-model{
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 9;
+        width:100%;
+        height: 100%;
+
+    }
+    .create-model-main {
+        position: absolute;
+        top:0;
+        right:0;
+        z-index: 11;
+        display: flex;
+        flex-wrap: wrap;
+        width: 700px;
+        height: 100%;
+        overflow-y: scroll;
+        background-color: #fff;
+        padding: 20px;
+    }
+    .model-item{
+        box-sizing: border-box;
+        width: 320px;
+        height: 200px;
+        padding: 20px;
+        border:1px solid #aaa;
+        img {
+            width: 110px;
+            height: 110px;
         }
+        &:hover {
+            background-color: #aaa;
+        }
+    }
+    .create-model-bg {
+        position: absolute;
+        top:0;
+        right:0;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0,0,0,0.5);
     }
 </style>

@@ -1,8 +1,8 @@
 <template>
-    <div id="log">
+    <div id="web">
         <div class="operating">
-            <button type="button" @click="opeShow('新增')"><i class="iconfont icon-jia"></i>新增</button>
-            <button type="button" @click="opeShow('编辑')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
+            <button type="button" @click="opeShow('新增站点')"><i class="iconfont icon-jia"></i>新增</button>
+            <button type="button" @click="opeShow('编辑站点')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
             <button type="button"  data-toggle="modal" data-target="#myModal"><i class="iconfont icon-icon_delete"></i>删除</button>
         </div>
         <el-table :data="tableData" style="width: 100%">
@@ -12,53 +12,40 @@
             >
             </el-table-column>
             <el-table-column
-                    label="状态"
-                    width="100"
+                    label="编号"
                     show-overflow-tooltip
             >
                 <template scope="scope">
-                    <i class="iconfont icon-dui"></i>
+                   <p>001</p>
                 </template>
 
             </el-table-column>
             <el-table-column
-                    prop="behaviorName"
-                    label="行为名称"
+                    prop="number"
+                    label="站点名称 ">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="站点域名 "
                     show-overflow-tooltip
             >
             </el-table-column>
             <el-table-column
-                    prop="behaviorDir"
-                    label="行为描述"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="behaviorFunction"
-                    label="执行方法"
+                    prop="dir"
+                    label="别名 "
                     show-overflow-tooltip
             >
             </el-table-column>
             <el-table-column
                     prop="type"
-                    label="系统标识"
-                    show-overflow-tooltip
+                    label="上传路径"
             >
             </el-table-column>
             <el-table-column
-                    prop="system"
-                    label="所属系统"
-                    show-overflow-tooltip
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="order"
-                    label="排序"
-                    show-overflow-tooltip
-            >
+                    prop="time"
+                    label="ftp地址 ">
             </el-table-column>
         </el-table>
-
         <div class="page-navigation">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -88,19 +75,19 @@
             <div slot="op-name">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">标题</label>
+                        <label class="col-sm-3 control-label">编号</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">说明</label>
+                        <label class="col-sm-3 control-label">模块名</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">终端类型</label>
+                        <label class="col-sm-3 control-label">模块描述</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control">
                         </div>
@@ -168,8 +155,8 @@
         },
         methods:{
             getData(){
-                this.axios.get('http://octops.cn/log').then((response)=> {
-                    this.tableData=response.data.data;
+                this.axios.get('/static/data/annex.json').then((response)=> {
+                    this.tableData=response.data.annex;
                 })
             },
             opeShow(text){
@@ -186,7 +173,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped rel="stylesheet/less" lang="less">
     @import "../../assets/less/common";
-    #log{
+    #web{
         position: relative;
         height: 100%;
         padding-top: 40px;
@@ -213,19 +200,11 @@
         th{
             text-align: center;
         }
-
     }
     .form-group{
         margin-right: 0;
     }
     .pagination{
         margin: 0;
-    }
-    .data_table{
-        td,th{
-            white-space: nowrap;
-            word-wrap: normal;
-            overflow: hidden;
-        }
     }
 </style>

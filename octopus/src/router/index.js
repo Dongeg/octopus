@@ -37,9 +37,21 @@ export default new Router({
                component: resolve => require(['@/components/websiteManage/menuManage'], resolve)
            },
            {
+               path: 'temStyle',
+               component: resolve => require(['@/components/websiteManage/TemStyle'], resolve)
+           },
+           {
+               path: 'tem',
+               component: resolve => require(['@/components/websiteManage/tem'], resolve)
+           },
+           {
+               path: 'website',
+               component: resolve => require(['@/components/websiteManage/websiteManage'], resolve)
+           },
+           {
                path: 'modelManage',
                component: resolve => require(['@/components/websiteManage/modelManage'], resolve)
-           }
+           },
        ]
    }
   ]

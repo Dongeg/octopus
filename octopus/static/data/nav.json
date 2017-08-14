@@ -57,9 +57,9 @@
           "item_child":[
             {"child_name":"菜单管理","child_link":"/index/menuManage"},
             {"child_name":"模块管理","child_link":"/index/modelManage"},
-            {"child_name":"模板风格管理","child_link":""},
-            {"child_name":"模板管理","child_link":""},
-            {"child_name":"站点管理","child_link":""}
+            {"child_name":"模板风格管理","child_link":"/index/temStyle"},
+            {"child_name":"模板管理","child_link":"/index/tem"},
+            {"child_name":"站点管理","child_link":"/index/website"}
           ]
         },
         {
