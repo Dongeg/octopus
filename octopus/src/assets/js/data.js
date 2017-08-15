@@ -50,10 +50,21 @@ let model=Mock.mock('http://octops.cn/model', {
         }
     ]
 });
+let user=Mock.mock('http://octops.cn/user', {
+    "data|1-10":[
+        {
+            "userName|1":["张三"," 李四","王五","赵六"],
+            "userDir|1":["前端"," 后台","测试","产品"],
+            "attribution|1":["棠下村"," 杭浦村","区庄","元村"],
+            "userIndex|1":["1"," 2","3","4"],
+        }
+    ]
+});
 export default{
     message,
     log,
     menu,
-    model
+    model,
+    user
 
 }

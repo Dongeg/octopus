@@ -52,6 +52,43 @@ export default new Router({
                path: 'modelManage',
                component: resolve => require(['@/components/websiteManage/modelManage'], resolve)
            },
+           {
+               path: 'department',
+               component: resolve => require(['@/components/websiteManage/Department'], resolve)
+           },
+           {
+               path: 'user',
+               component: resolve => require(['@/components/websiteManage/user'], resolve)
+           },
+           {
+               path: 'character',
+               component: resolve => require(['@/components/websiteManage/character'], resolve)
+           },
+           {
+               path: 'personalManage',
+               component: resolve => require(['@/components/websiteManage/personalManage'], resolve)
+           },
+           {
+               path: 'companyManage',
+               component: resolve => require(['@/components/websiteManage/companyManage'], resolve)
+           },
+           {
+               path: 'operationLog',
+               component: resolve => require(['@/components/websiteManage/operationLog'], resolve)
+           },
+           {
+               path: 'abnormalLog',
+               component: resolve => require(['@/components/websiteManage/abnormalLog'], resolve)
+           },
+           {
+               path: 'messagePush',
+               component: resolve => require(['@/components/websiteManage/messagePush'], resolve)
+           },
+           {
+               path: 'feedback1',
+               component: resolve => require(['@/components/websiteManage/feedback1'], resolve)
+           },
+
        ]
    }
   ]
