@@ -88,7 +88,38 @@ export default new Router({
                path: 'feedback1',
                component: resolve => require(['@/components/websiteManage/feedback1'], resolve)
            },
+           //内容管理路由
+           {
+             path: 'sort',
+             component: resolve => require(['@/components/contentManage/sort'], resolve)
+           },
+           {
+             path: 'aricle',
+             component: resolve => require(['@/components/contentManage/aricle'], resolve)
+           },
+           {
+             path: 'articleStatistics',
+             component: resolve => require(['@/components/contentManage/ArticleStatistics'], resolve)
+           },
+           {
+             path: 'contentAudit',
+             component: resolve => require(['@/components/contentManage/contentAudit'], resolve)
+           },
+         //民政互动路由
+         {
+           path: 'hotword',
+           component: resolve => require(['@/components/interactive/HotWord.vue'], resolve)
+         },
 
+         {
+           path: 'knowledge',
+           component: resolve => require(['@/components/interactive/knowledge.vue'], resolve)
+         },
+
+         {
+           path: 'question',
+           component: resolve => require(['@/components/interactive/question.vue'], resolve)
+         },
        ]
    }
   ]
