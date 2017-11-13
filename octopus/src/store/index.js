@@ -3,16 +3,27 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const store=new Vuex.Store({
-    state:{
-
+  state:{
+    isLoading:false,//是否登陆
+    loadingAnimate:false,  //是否显示登陆动画
+  },
+  getter:{},
+  mutations:{
+    updateLoadingState(state,flag){
+      state.isLoading=flag
     },
-    getter:{},
-    mutations:{
-
+    updateLoadingAnimate(state,flag){
+      state.loadingAnimate=flag
+    }
+  },
+  actions:{
+    onLoading(context,flag){
+      context.commit("updateLoadingState",flag);
     },
-    actions:{
-
-    },
-    modules:{}
+    showAnimate(context,flag) {
+      context.commit("updateLoadingAnimate",flag);
+    }
+  },
+  modules:{}
 })
 export default store

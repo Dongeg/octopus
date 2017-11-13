@@ -57,12 +57,17 @@
         <div id="index-main">
             <!--二级页面标签卡-->
             <div class="tab-container">
-                <ul class="tab-main">
-                    <li v-for="(item,index) in tabList" class="tab-item">
-                        <router-link :to="{path:item.link}"><p>{{item.name}}</p></router-link>
-                        <p class="close-btn" @click="tabClose(item.name)">x</p>
-                    </li>
+              <p id="tab-left" @click="tab2left()"><<</p>
+              <div class="tab-main">
+                <ul >
+                  <li v-for="(item,index) in tabList" class="tab-item">
+                    <router-link :to="{path:item.link}"><p>{{item.name}}</p></router-link>
+                    <p class="close-btn" @click="tabClose(item.name)">x</p>
+                  </li>
                 </ul>
+              </div>
+
+              <p id="tab-right" @click="tab2right()">>></p>
             </div>
             <keep-alive>
             <router-view></router-view>
@@ -149,7 +154,37 @@
                 if(childIsPush) {
                     this.tabList.push({"name":name,"link":link});
                 }
+            },
+          tab2left(){
+              var nav=$($(".tab-main")[0]).find("ul");
+              var nav=$(nav);
+              var tabItem=$(".tab-item");
+              var itemLen=tabItem.length;
+              var navWidth=80*itemLen;
+              var navleft=parseFloat(nav.css('left'));
+            console.log(navleft)
+            if(navleft>=0) {
+              nav.css('left',0+"px");
             }
+            else {
+              nav.css('left',navleft+50+"px");
+
+            }
+          },
+          tab2right(){
+            var nav=$($(".tab-main")[0]).find("ul");
+            var nav=$(nav);
+            var tabItem=$(".tab-item");
+            var itemLen=tabItem.length;
+            var navWidth=80*itemLen;
+            var navleft=parseFloat(nav.css('left'));
+            if(navleft<(-navWidth)) {
+              nav.css('left',0+"px");
+            }
+            else {
+              nav.css('left',navleft-50+"px");
+            }
+          }
         },
     }
 </script>
@@ -169,7 +204,7 @@
     }
     .menu-nav{
         position: relative;
-        z-index: 2;
+        z-index: 20;
         display: flex;
         width: 180px;
         height: 144px;
@@ -261,6 +296,8 @@
         color: #fff;
     }
     .tab-container{
+      display: flex;
+      justify-content:space-between;
         position:absolute;
         top:0;
         left:0;
@@ -271,12 +308,22 @@
     }
     .tab-main{
         height: 100%;
-        display: flex;
+        width: 94%;
         align-items:flex-end;
+        position: relative;
+        overflow: hidden;
+        ul{
+          display:flex;
+          position: absolute;
+          top:0;
+          left: 0;
+        }
+
 
     }
     .tab-item{
         display: flex;
+        flex-shrink:0;
         padding: 7px;
         background-color:#DCDCDC;
         margin-right: 5px;
@@ -289,4 +336,14 @@
         position: relative;
         flex-grow:1;
     }
+    #tab-left ,
+    #tab-right{
+    width: 3%;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: #3879d9;
+    padding: 0 5px;
+    color: #fff;
+      border-radius:5px;
+  }
 </style>

@@ -222,3 +222,6 @@ summary {
 .align_conter{
     text-align: center;
 }
+.dropdown-menu li {
+  cursor: pointer;
+}

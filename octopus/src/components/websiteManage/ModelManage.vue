@@ -2,8 +2,8 @@
     <div id="model-manage">
         <div class="operating">
             <button type="button" @click="createModelShow=true"><i class="iconfont icon-jia"></i>新增</button>
-            <button type="button" @click="opeShow('编辑附件模块')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
-            <button type="button">复制</button>
+            <button type="button" @click="opeShow('编辑附件模块',2,'lg')"><i class="iconfont icon-neirongbianji"></i>编辑</button>
+            <button type="button" @click="copyData()">复制</button>
             <button type="button"  data-toggle="modal" data-target="#myModal"><i class="iconfont icon-icon_delete"></i>删除</button>
         </div>
         <el-table :data="tableData" style="width: 100%" highlight-current-row @current-change="handleCurrentChange">
@@ -58,73 +58,129 @@
         </div>
         <div id="create-model" v-show="createModelShow==true">
             <div class="create-model-main">
+              <div class="choose-model" v-show="showtype==1">
                 <div class="model-item" @click="chooseModel()">
-                    <p>单片文章一</p>
-                    <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
-                    <p>单篇文章</p>
+                  <p>单片文章一</p>
+                  <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
+                  <p>单篇文章</p>
                 </div>
                 <div class="model-item" @click="chooseModel()">
-                    <p>单片文章一</p>
-                    <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
-                    <p>单篇文章</p>
+                  <p>单片文章一</p>
+                  <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
+                  <p>单篇文章</p>
                 </div>
                 <div class="model-item" @click="chooseModel()">
-                    <p>单片文章一</p>
-                    <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
-                    <p>单篇文章</p>
+                  <p>单片文章一</p>
+                  <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
+                  <p>单篇文章</p>
                 </div>
                 <div class="model-item" @click="chooseModel()">
-                    <p>单片文章一</p>
-                    <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
-                    <p>单篇文章</p>
+                  <p>单片文章一</p>
+                  <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
+                  <p>单篇文章</p>
                 </div>
                 <div class="model-item" @click="chooseModel()">
-                    <p>单片文章一</p>
-                    <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
-                    <p>单篇文章</p>
+                  <p>单片文章一</p>
+                  <p><img src="../../assets/images/index/m_article2.png" alt=""></p>
+                  <p>单篇文章</p>
                 </div>
+              </div>
+              <div class="edit-model" v-show="showtype==2">
+                  <div class="edit-model-title">
+                    <p>新建模块</p>
+                    <p>
+                      <button class="btn btn-primary">取消</button>
+                      <button class="btn btn-primary">确认</button >
+                    </p>
+                  </div>
+                  <div class="edit-title"><span>标题</span><input type="text"></div>
+                  <div>
+                    <div>
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">文章选项</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">菜单分配</a></li>
+                      </ul>
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                          <div class=" wzOption">
+                            <div style="width: 50%">
+                              <p><span>选择文章</span>
+                                <select class="form-control" style="width: 150px;display: inline-block">
+                                  <option value="">文章</option>
+                                  <option value="">马伊琍</option>
+                                  <option value="">姚笛</option>
+                                </select>
+                              </p>
+                            </div>
+                            <div style="width: 50%" class="wzOption-right">
+                              <div class="show-title ks">
+                                <span>显示标题</span>
+                                <div class="btn-group" data-toggle="buttons">
+                                  <label class="btn btn-primary active">
+                                    <input type="checkbox" autocomplete="off" checked>显示
+                                  </label>
+                                  <label class="btn btn-primary">
+                                    <input type="checkbox" autocomplete="off">隐藏
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="ks">
+                                <span>位置*</span>
+                                <select class="form-control" style="width: 150px;display: inline-block">
+                                  <option value="">上</option>
+                                  <option value="">中</option>
+                                  <option value="">下</option>
+                                </select>
+                              </div>
+                              <div class="ks">
+                                <span>状态</span>
+                                <select class="form-control" style="width: 150px;display: inline-block">
+                                  <option value="">发布</option>
+                                  <option value="">未发布</option>
+                                </select>
+                              </div>
+                              <div class="ks">
+                                <div class="block">
+                                  <span class="demonstration">发布日期</span>
+                                  <el-date-picker
+                                    type="daterange"
+                                    placeholder="选择日期范围">
+                                  </el-date-picker>
+                                </div>
+                              </div>
+                              <div class="ks">
+                                <span>注释</span>
+                                <input type="text" class="form-control" style="width: 150px;display: inline-block">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                          <div class="ks menu-distribution">
+                            <span>模块分配</span>
+                            <select class="form-control" style="width: 150px;display: inline-block">
+                              <option value="">没有页面</option>
+                              <option value="">所有页面</option>
+                              <option value="">特定页面</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
             </div>
-            <div class="create-model-bg" @click="createModelShow=false"></div>
+            <div class="create-model-bg" @click="createModelMgClick()"></div>
         </div>
-        <operate v-show="operate" @hide-ope="hideOperate()" :opname="opName">
+        <operate v-show="operate" @hide-ope="hideOperate()" :opname="opName" :layerSize="layerSize">
             <div slot="op-btn">
                 <button type="button" class="btn btn-primary" @click="hideOperate()">取消</button>
                 <button type="button" class="btn btn-primary" @click="hideOperate()">确认</button>
             </div>
             <div slot="op-name">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">编号</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">模块名</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">模块描述</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">文件类型</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">模块状态</label>
-                        <div class="col-sm-9">
-                            <label for="used"><input type="radio" id="used" name="model-status">启用</label>
-                            <label for="unused"><input type="radio" id="unused" name="model-status">禁用</label>
-                        </div>
-                    </div>
-                </form>
+
             </div>
         </operate>
         <!-- Modal -->
@@ -139,8 +195,8 @@
                         附件模块删除后无法恢复！
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button type="button" class="btn btn-danger">删除</button>
+                        <button type="button" class="btn btn-default del-model" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-danger" @click="delData()">删除</button>
                     </div>
                 </div>
             </div>
@@ -161,6 +217,10 @@
                 opName:"",
                 tableData:[],
                 createModelShow:false,
+                operateType:1,
+                layerSize:'sm',
+                currentRow:"",
+                showtype:1,
             }
         },
         computed:{
@@ -177,21 +237,49 @@
                     this.tableData=response.data.data
                 })
             },
-            opeShow(text){
-                this.opName=text;
-                this.operate=true;
+            opeShow(text,type,size){
+              this.operateType=type;
+              this.opName=text;
+              this.operate=true;
+              this.layerSize=size;
+            },
+            createModelMgClick() {
+              this.showtype=1;
+              this.createModelShow=false;
             },
             hideOperate(){
                 this.operate=false;
             },
             chooseModel(){
-                this.createModelShow=false;
+                this.showtype=2;
             },
             setCurrent(row) {
                 this.$refs.singleTable.setCurrentRow(row);
             },
             handleCurrentChange(val) {
                 this.currentRow = val;
+            },
+            copyData() {
+              let timestamp = Date.parse(new Date());
+              var data={
+                dataId:timestamp,
+                modelName:this.currentRow.modelName,
+                modelStyle:this.currentRow.modelStyle,
+                remarks:this.currentRow.remarks,
+                status:this.currentRow.remarks
+              }
+              console.log()
+              this.tableData.push(data);
+            },
+            delData() {
+              var that=this
+              this.tableData.forEach(function (value,index,array) {
+                if(array[index].dataId==that.currentRow.dataId){
+                  array.splice(index,1)
+                  return
+                }
+              })
+              $(".del-model")[0].click();
             }
         }
     }
@@ -244,17 +332,24 @@
 
     }
     .create-model-main {
-        position: absolute;
-        top:0;
-        right:0;
-        z-index: 11;
+      position: absolute;
+      top:0;
+      right:0;
+      z-index: 11;
+      display: flex;
+      flex-wrap: wrap;
+      width: 700px;
+      height: 100%;
+      overflow-y: scroll;
+      background-color: #fff;
+      padding: 20px;
+    }
+    .choose-model {
         display: flex;
         flex-wrap: wrap;
-        width: 700px;
-        height: 100%;
-        overflow-y: scroll;
-        background-color: #fff;
-        padding: 20px;
+    }
+    .edit-model {
+      width: 100%;
     }
     .model-item{
         box-sizing: border-box;
@@ -279,4 +374,46 @@
         height: 100%;
         background-color:rgba(0,0,0,0.5);
     }
+    .edit-model-title {
+      width: 100%;
+      display: flex;
+      justify-content:space-between;
+      align-items: center;
+    }
+  .edit-title {
+    margin-top: 20px;
+    padding: 10px 0;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    span {
+      display: inline-block;
+      width: 80px;
+
+    }
+  }
+  .wzOption {
+     display: flex;
+    padding-top: 20px;
+    span {
+      display: inline-block;
+      width: 6rem;
+      text-align: right;
+      margin-right: 10px;
+    }
+  }
+  .show-title {
+    display: flex;
+    align-items: center;
+  }
+  .ks {
+    margin-bottom: 20px;
+  }
+  .menu-distribution {
+    span {
+      display: inline-block;
+      width: 6rem;
+    }
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+  }
 </style>

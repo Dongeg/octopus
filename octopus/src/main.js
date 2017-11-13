@@ -10,6 +10,22 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import util from './assets/js/util'
 import data from './assets/js/data'
+
+
+router.beforeEach((to, from, next) => {
+  store.dispatch("showAnimate",true);
+  next()
+})
+router.afterEach((to, from) => {
+  setTimeout(function () {
+    store.dispatch("showAnimate",false);
+  },300)
+
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+})
+
+
+
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(util)

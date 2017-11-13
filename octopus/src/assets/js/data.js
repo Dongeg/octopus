@@ -43,6 +43,7 @@ let menu=Mock.mock('http://octops.cn/menu', {
 let model=Mock.mock('http://octops.cn/model', {
     "data|1-10":[
         {
+            "dataId|+1":10001,
             "modelName|1":["heizi"," baizi","lanzi"],
             "modelStyle|1":["首页"," 蓝天","白云","草地"],
             "status|0-1": 100,

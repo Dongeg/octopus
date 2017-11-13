@@ -1,7 +1,8 @@
 {
   "annex":[
     {
-      "status":0,
+      "dataId":10001,
+      "status":true,
       "number":"rubik_001",
       "name":"附件模块管理edit",
       "dir":"附件模块管理edit",
@@ -9,72 +10,36 @@
       "time":"2016-07-22 15:13:38"
     },
     {
-      "status":0,
-      "number":"rubik_001",
+      "dataId":10002,
+      "status":true,
+      "number":"rubik_002",
       "name":"附件模块管理edit",
       "dir":"附件模块管理edit",
       "type":"*",
       "time":"2016-07-22 15:13:38"
     },
     {
-      "status":0,
-      "number":"rubik_001",
+      "dataId":10003,
+      "status":false,
+      "number":"rubik_003",
       "name":"附件模块管理edit",
       "dir":"附件模块管理edit",
       "type":"*",
       "time":"2016-07-22 15:13:38"
     },
     {
-      "status":0,
-      "number":"rubik_001",
+      "dataId":10004,
+      "status":false,
+      "number":"rubik_004",
       "name":"附件模块管理edit",
       "dir":"附件模块管理edit",
       "type":"*",
       "time":"2016-07-22 15:13:38"
     },
     {
-      "status":0,
-      "number":"rubik_001",
-      "name":"附件模块管理edit",
-      "dir":"附件模块管理edit",
-      "type":"*",
-      "time":"2016-07-22 15:13:38"
-    },
-    {
-      "status":0,
-      "number":"rubik_001",
-      "name":"附件模块管理edit",
-      "dir":"附件模块管理edit",
-      "type":"*",
-      "time":"2016-07-22 15:13:38"
-    },
-    {
-      "status":0,
-      "number":"rubik_001",
-      "name":"附件模块管理edit",
-      "dir":"附件模块管理edit",
-      "type":"*",
-      "time":"2016-07-22 15:13:38"
-    },
-    {
-      "status":0,
-      "number":"rubik_001",
-      "name":"附件模块管理edit",
-      "dir":"附件模块管理edit",
-      "type":"*",
-      "time":"2016-07-22 15:13:38"
-    },
-    {
-      "status":0,
-      "number":"rubik_001",
-      "name":"附件模块管理edit",
-      "dir":"附件模块管理edit附件模块管理edit附件模块管理edit附件模块管理edit附件模块管理edit",
-      "type":"*",
-      "time":"2016-07-22 15:13:38"
-    },
-    {
-      "status":0,
-      "number":"rubik_001",
+      "dataId":10005,
+      "status":false,
+      "number":"rubik_005",
       "name":"附件模块管理edit",
       "dir":"附件模块管理edit",
       "type":"*",

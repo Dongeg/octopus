@@ -2,7 +2,7 @@
     <!--增、删、编辑右侧弹窗-->
     <div class="operate-container">
         <transition enter-active-class="fadeInRight" leave-active-class="fadeOutRight">
-        <div class="operate-layer">
+        <div class="operate-layer" :class="{'lg-size':layerSize=='lg'}">
             <div class="operate-header">
                 <p>{{opname}}</p>
                 <p>
@@ -20,7 +20,8 @@
 <script>
     export default {
         props:{
-            opname:[String]
+            opname:[String],
+            layerSize:[String]
         },
         name: 'operate',
         data:function(){
@@ -78,5 +79,8 @@
     }
     .operate-main{
         padding:30px 5px;
+    }
+    .lg-size {
+      width: 900px;
     }
 </style>

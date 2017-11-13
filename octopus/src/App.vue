@@ -1,6 +1,18 @@
 <template>
   <div id="app">
-    <header class="header"><img src="./assets/images/login/login-logo.png" alt="logo"></header>
+    <loadinganimate v-show="loadingAnimate"></loadinganimate>
+    <header class="header">
+      <img src="./assets/images/login/login-logo.png" alt="logo">
+      <p v-show="isLoading" class="login-msg">
+        欢迎您！【开发组】admin
+        <router-link to="/">退出</router-link>
+        当前站点：
+        <select>
+          <option value="">demo来的</option>
+          <option value="">demo来的</option>
+        </select>
+      </p>
+    </header>
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -8,8 +20,20 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+import loadinganimate from '@/components/Loading'
 export default {
-  name: 'app'
+  name: 'app',
+  components:{
+    loadinganimate,
+  },
+  computed:{
+    ...mapState([
+      'isLoading',
+      'loadingAnimate'
+    ])
+  },
+
 }
 </script>
 
@@ -25,12 +49,25 @@ export default {
     top:0;
     left:0;
     z-index: 99;
+    display: flex;
+    justify-content: space-between;
     height: 50px;
     width: 100%;
+    min-width: 1000px;
     display: flex;
     align-items: center;
     padding-left: 8px;
     border-bottom: 1px solid #d1d4d7;
     background-color: @blue-plus;
+  }
+  .login-msg {
+    color: #fff;
+    margin-right: 20px;
+    select {
+      color: #000;
+    }
+    a {
+      color: #fff;
+    }
   }
 </style>

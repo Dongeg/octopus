@@ -25,14 +25,44 @@
                 <div class="section-main-title">业务</div>
                 <div class="section-main-centent">
                     <span v-for="(item,index) in businessData"
-                          @mouseover="showDelIndex=index"
-                          @mouseout="showDelIndex=-1"
+                          @mouseover="showBIndex=index"
+                          @mouseout="showBIndex=-1"
                     >
                         {{item}}
-                        <a href="javascript:;" class="subitem-delbtn" v-show="showDelIndex==index" @click="labelDel(item)">×</a></span>
-                    <a href="javascript:;" class="subitem-addbtn" @click="opeShow('添加标签')">添加标签</a>
+                        <a href="javascript:;" class="subitem-delbtn" v-show="showBIndex==index" @click="labelDel('1',item)">×</a></span>
+                    <a href="javascript:;" class="subitem-addbtn" @click="opeShow('添加标签',1)">添加标签</a>
                 </div>
             </div>
+          <div class="klass-section">
+            <div class="section-header">内容管理</div>
+          </div>
+          <div class="section-main">
+            <div class="section-main-title">业务</div>
+            <div class="section-main-centent">
+                    <span v-for="(item,index) in contentData"
+                          @mouseover="showCIndex=index"
+                          @mouseout="showCIndex=-1"
+                    >
+                        {{item}}
+                        <a href="javascript:;" class="subitem-delbtn" v-show="showCIndex==index" @click="labelDel('2',item)">×</a></span>
+              <a href="javascript:;" class="subitem-addbtn" @click="opeShow('添加标签',2)">添加标签</a>
+            </div>
+          </div>
+          <div class="klass-section">
+            <div class="section-header">民政互动</div>
+          </div>
+          <div class="section-main">
+            <div class="section-main-title">业务</div>
+            <div class="section-main-centent">
+                    <span v-for="(item,index) in mzData"
+                          @mouseover="showMIndex=index"
+                          @mouseout="showMIndex=-1"
+                    >
+                        {{item}}
+                        <a href="javascript:;" class="subitem-delbtn" v-show="showMIndex==index" @click="labelDel('3',item)">×</a></span>
+              <a href="javascript:;" class="subitem-addbtn" @click="opeShow('添加标签',3)">添加标签</a>
+            </div>
+          </div>
         </div>
         <operate v-show="operate" @hide-ope="hideOperate()" @klasssadd="klassadd()" :opname="opName">
             <div slot="op-btn">
@@ -69,9 +99,28 @@
                     "业务5",
                     "业务6"
                 ],
-                showDelIndex:-1,
+              contentData:[
+                "业务1",
+                "业务2",
+                "业务3",
+                "业务4",
+                "业务5",
+                "业务6"
+              ],
+              mzData:[
+                "业务1",
+                "业务2",
+                "业务3",
+                "业务4",
+                "业务5",
+                "业务6"
+              ],
+                showBIndex:-1,
+                showCIndex:-1,
+                showMIndex:-1,
                 operate:false,
                 opName:"",
+                addTo:null,
             }
         },
         computed:{
@@ -88,19 +137,44 @@
                     console.log(response.data)
                 })
             },
-            opeShow(text){
+            opeShow(text,type){
                 this.opName=text;
                 this.operate=true;
+                this.addTo=type;
+                this.classAddLabel="";
+
             },
             hideOperate(){
                 this.operate=false;
             },
             klassAdd(){
-                this.businessData.push(this.classAddLabel);
+                var type=this.addTo;
+                var obj=null;
+                if(type==1){
+                  obj="businessData"
+                }
+                else if (type==2){
+                  obj="contentData";
+                }
+                else {
+                  obj="mzData";
+                }
+                var newData=this.classAddLabel.split(",")
+                this[obj]=this[obj].concat(newData);
                 this.operate=false;
             },
-            labelDel(i){
-                this.businessData.forEach(function (value,index,array) {
+            labelDel(type,i){
+                var obj=null;
+                if(type==1){
+                  obj="businessData"
+                }
+                else if (type==2){
+                  obj="contentData";
+                }
+                else {
+                  obj="mzData";
+                }
+                this[obj].forEach(function (value,index,array) {
                     if(array[index]==i){
                         array.splice(index,1)
                         return

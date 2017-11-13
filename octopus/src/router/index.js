@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 Vue.use(Router)
 
 export default new Router({
@@ -7,11 +8,19 @@ export default new Router({
     {
       path: '/',
       name: 'Login',
+      beforeEnter: (to, from, next) => {
+        store.dispatch("onLoading",false);
+        next();
+      },
         component: resolve => require(['@/components/Login'], resolve)
     },
    {
       path: '/index',
       name: 'Index',
+     beforeEnter: (to, from, next) => {
+       store.dispatch("onLoading",true);
+       next();
+     },
       component: resolve => require(['@/components/Index'], resolve),
        children: [
            //基础设置板框中的路由
